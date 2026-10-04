@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>住宅ローン 固定vs変動 損益分岐シミュレーター</title>
+<style>
+:root{--bg:#f7f8fa;--card:#fff;--tx:#1d2330;--sub:#667085;--ac:#1f6feb;--ok:#18794e;--ng:#c62828;--bd:#e1e5ec;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12151c;--card:#1b2029;--tx:#e8ebf2;--sub:#9aa3b5;--ac:#5b9bff;--ok:#4cc38a;--ng:#ff7b72;--bd:#2c3340}}
+:root[data-theme="dark"]{--bg:#12151c;--card:#1b2029;--tx:#e8ebf2;--sub:#9aa3b5;--ac:#5b9bff;--ok:#4cc38a;--ng:#ff7b72;--bd:#2c3340}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.6 -apple-system,"Hiragino Sans","Noto Sans JP",sans-serif}
+main{max-width:720px;margin:0 auto;padding:16px}
+h1{font-size:20px;margin:8px 0}h2{font-size:16px;margin:0 0 10px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px;margin:12px 0}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+label{display:block;font-size:12px;color:var(--sub)}
+input{width:100%;box-sizing:border-box;padding:8px;font-size:16px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx)}
+.big{font-size:26px;font-weight:700;color:var(--ac)}
+.w{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:13px;white-space:nowrap}
+th,td{padding:6px 8px;border-bottom:1px solid var(--bd);text-align:right}th:first-child,td:first-child{text-align:left}
+a{color:var(--ac)}ol{margin:6px 0;padding-left:20px}#ft p{margin:6px 0}
+.ok{color:var(--ok)}.ng{color:var(--ng)}.s{font-size:12px;color:var(--sub)}
+</style>
+</head>
+<body>
+<main>
+<h1>🏠 固定 vs 変動 損益分岐シミュレーター</h1>
+<div class="card"><h2>このツールでわかること</h2>
+<p>住宅ローンの「固定金利」と「変動金利」を、総支払額で比べます。変動金利が何％まで上がると固定に逆転されるか（損益分岐点）や、単独・夫婦での借り方の違い、125%ルールで返済額が抑えられたときの残債の増え方も確かめられます。</p>
+<ol><li>①に借入額・年数・金利を入力します（数値は自由に変更できます）</li><li>②〜④で、比較結果と損益分岐点を見ます</li><li>⑤⑥で、借り方の違いと125%ルールの影響を確認します</li></ol>
+<p class="s">②〜⑥は、見出しをタップすると閉じられます。使わない計算は閉じておけます。</p>
+<p class="s">考え方や結果の見方は、解説記事で詳しく説明しています。</p></div>
+
+<div class="card"><h2>① 借入条件</h2>
+<div class="g">
+<div><label>借入額（万円）</label><input id="P" type="number" value="4000"></div>
+<div><label>返済年数</label><input id="Y" type="number" value="35"></div>
+<div><label>固定金利（％）</label><input id="rf" type="number" step="0.01" value="3.5"></div>
+<div><label>変動金利・当初（％）</label><input id="rv" type="number" step="0.01" value="0.8"></div>
+<div><label>何年後に上昇？</label><input id="N" type="number" value="5"></div>
+<div><label>上昇幅（＋％）</label><input id="dx" type="number" step="0.1" value="1.5"></div>
+</div>
+<p class="s">※金利の初期値は仮の値です。実際の金融機関の最新金利に書き換えてください。</p></div>
+
+<div class="card"><h2>② 比較結果</h2><div id="res"></div></div>
+<div class="card"><h2>📈 累積支払額の推移（グラフ）</h2><div id="gl" class="s"></div><div id="gr"></div>
+<p class="s">線が交わるところが、固定と変動の総額が並ぶ時点です。点線は金利が上がる時点（①の「何年後に？」）です。</p></div>
+<div class="card"><h2>③ 損益分岐点</h2><div id="be"></div></div>
+<div class="card"><h2>④ 上昇幅別シナリオ</h2><div class="w" id="tb"></div></div>
+
+<div class="card"><h2>⑤ 単独 vs 収入合算（簡易）</h2>
+<div class="g">
+<div><label>本人の年収（万円）</label><input id="iA" type="number" value="600"></div>
+<div><label>配偶者の年収（万円）</label><input id="iB" type="number" value="400"></div>
+<div><label>返済負担率（％）</label><input id="rt" type="number" value="30"></div>
+<div><label>審査金利（％）</label><input id="st" type="number" step="0.1" value="3.5"></div>
+<div><label>控除率（％）</label><input id="dr" type="number" step="0.1" value="0.7"></div>
+<div><label>控除対象の借入限度額（万円/人）</label><input id="lm" type="number" value="4500"></div>
+</div><div id="pr" style="margin-top:10px"></div></div>
+
+<div class="card"><h2>⑥ 125%ルール ストレステスト</h2>
+<div class="g"><div><label>上昇幅（＋％・2年目から上昇したまま）</label><input id="sx" type="number" step="0.1" value="4"></div></div>
+<p class="s">返済額は5年ごとに見直され、増加は直前の1.25倍まで、という仕組みで試算します（①の借入額・年数・変動当初金利を使用）。</p>
+<div id="ru"></div></div>
+
+<p class="s">【前提と注意】元利均等返済・ボーナス返済なし。変動金利は上昇時点で返済額を再計算する簡易モデルで、5年ルール・125％ルール（⑥のみ試算）、諸費用、繰上返済は①〜⑤に未反映です。控除は固定金利の残高を使い13年間で概算、ペアは50:50の持分と仮定。制度や金利は変わるため、実際は金融機関・税務署の情報で確認してください。投資・契約の助言ではありません。</p>
+<div class="card" id="ft"></div>
+<div class="card" id="ad">
+<p class="s">【PR】この欄には広告（アフィリエイト）が含まれます</p>
+<h2>📚 住宅ローンをもっと学びたい方へ</h2>
+<div id="adbody">
+<!-- ↓ここに楽天アフィリエイトの商品リンク（楽天ブックスの住宅ローン本）のコードを貼る -->
+
+<table border="0" cellpadding="0" cellspacing="0"><tr><td><div style="border:1px solid #95A5A6;border-radius:.75rem;background-color:#FFFFFF;width:280px;margin:0px;padding:5px;text-align:center;overflow:hidden;"><table><tr><td style="width:128px"><a href="https://hb.afl.rakuten.co.jp/ichiba/582956fc.8e51abce.582956fd.43136d33/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fbook%2F15267684%2F&link_type=picttext&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJwaWN0dGV4dCIsInNpemUiOiIxMjh4MTI4IiwibmFtIjoxLCJuYW1wIjoicmlnaHQiLCJjb20iOjEsImNvbXAiOiJkb3duIiwicHJpY2UiOjAsImJvciI6MSwiY29sIjoxLCJiYnRuIjoxLCJwcm9kIjowLCJhbXAiOmZhbHNlfQ%3D%3D" target="_blank" rel="nofollow sponsored noopener" style="word-wrap:break-word;"><img src="https://hbb.afl.rakuten.co.jp/hgb/582956fc.8e51abce.582956fd.43136d33/?me_id=1213310&item_id=18908113&pc=https%3A%2F%2Fthumbnail.image.rakuten.co.jp%2F%400_mall%2Fbook%2Fcabinet%2F5590%2F9784534055590.jpg%3F_ex%3D128x128&s=128x128&t=picttext" border="0" style="margin:2px" alt="" title=""></a></td><td style="vertical-align:top;width:136px;display: block;"><p style="font-size:12px;line-height:1.4em;text-align:left;margin:0px;padding:2px 6px;word-wrap:break-word"><a href="https://hb.afl.rakuten.co.jp/ichiba/582956fc.8e51abce.582956fd.43136d33/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fbook%2F15267684%2F&link_type=picttext&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJwaWN0dGV4dCIsInNpemUiOiIxMjh4MTI4IiwibmFtIjoxLCJuYW1wIjoicmlnaHQiLCJjb20iOjEsImNvbXAiOiJkb3duIiwicHJpY2UiOjAsImJvciI6MSwiY29sIjoxLCJiYnRuIjoxLCJwcm9kIjowLCJhbXAiOmZhbHNlfQ%3D%3D" target="_blank" rel="nofollow sponsored noopener" style="word-wrap:break-word;">家を買うときに「お金で損したくない人」が読む本 [ 千日太郎 ]</a></p></td></tr></table></div><br><p style="color:#000000;font-size:12px;line-height:1.4em;margin:5px;word-wrap:break-word"></p></td></tr></table>
+<!-- ↑ここまで -->
+</div></div>
+</main>
+<script>
+window.addEventListener("load",()=>{const b=document.getElementById("adbody");if(!b.innerHTML.replace(/<!--[\s\S]*?-->/g,"").trim())document.getElementById("ad").style.display="none"});
+const NOTE_URL="";      // ← noteの解説記事のURLを入れる
+(function(){const f=document.getElementById("ft");
+if(NOTE_URL)f.innerHTML=`<p><a href="${NOTE_URL}" target="_blank" rel="noopener">📖 解説記事（note）はこちら</a></p><p class="s">ご感想・ご質問・修正してほしい点は、記事のコメント欄にお寄せください。</p>`;
+else f.style.display="none"})();
+</script>
+<script>
+const $=id=>+document.getElementById(id).value;
+const pay=(P,r,n)=>{const i=r/1200;return i?P*i/(1-Math.pow(1+i,-n)):P/n};
+const man=v=>Math.round(v/1e4).toLocaleString()+"万円";
+const yen=v=>Math.round(v).toLocaleString()+"円";
+function simVar(P,r0,n,N,x){let bal=P,tot=0,p=pay(P,r0,n),r=r0,m1=p,m2=p;
+for(let m=1;m<=n;m++){if(m===N*12+1){r=r0+x;p=pay(bal,r,n-m+1);m2=p}
+const it=bal*r/1200;bal-=p-it;tot+=p}return{tot,m1,m2}}
+function bal(P,r,n,k){const i=r/1200;return i?P*(Math.pow(1+i,n)-Math.pow(1+i,k))/(Math.pow(1+i,n)-1):P*(1-k/n)}
+function calc(){
+const P=$("P")*1e4,Y=$("Y"),n=Y*12,rf=$("rf"),rv=$("rv"),N=Math.min($("N"),Y-1),dx=$("dx");
+const fm=pay(P,rf,n),ft=fm*n,v=simVar(P,rv,n,N,dx),d=v.tot-ft;
+document.getElementById("res").innerHTML=
+`<div class="w"><table><tr><th></th><th>月々</th><th>総支払額</th></tr>
+<tr><td>固定 ${rf}%</td><td>${yen(fm)}</td><td>${man(ft)}</td></tr>
+<tr><td>変動 当初${rv}%</td><td>${yen(v.m1)}</td><td></td></tr>
+<tr><td>変動 ${N}年後＋${dx}%</td><td>${yen(v.m2)}</td><td>${man(v.tot)}</td></tr></table></div>
+<p>変動は固定より総額で <span class="big ${d>0?"ng":"ok"}">${d>0?"+":"−"}${man(Math.abs(d))}</span> ${d>0?"高い（固定が有利）":"安い（変動が有利）"}</p>`;
+const f=x=>simVar(P,rv,n,N,x).tot-ft;let be;
+if(f(0)>0)be="当初金利のままでも変動の総額が固定を上回っています。";
+else if(f(10)<0)be=`${N}年後に＋10％上がっても変動が有利です。`;
+else{let lo=0,hi=10;for(let k=0;k<40;k++){const mid=(lo+hi)/2;f(mid)<0?lo=mid:hi=mid}
+be=`${N}年後に変動金利が <span class="big">＋${lo.toFixed(2)}％</span>（${(rv+lo).toFixed(2)}％）まで上がると、固定の総支払額と並びます。`}
+document.getElementById("be").innerHTML=`<p>${be}</p><p class="s">それ以上上がれば固定が有利、下回れば変動が有利です。</p>`;
+let rows="";[0,0.5,1,1.5,2,3].forEach(x=>{const s=simVar(P,rv,n,N,x),df=s.tot-ft;
+rows+=`<tr><td>＋${x}%</td><td>${yen(s.m2)}</td><td>${man(s.tot)}</td><td class="${df>0?"ng":"ok"}">${df>0?"+":"−"}${man(Math.abs(df))}</td></tr>`});
+document.getElementById("tb").innerHTML=`<table><tr><th>${N}年後</th><th>上昇後の月々</th><th>総額</th><th>固定との差</th></tr>${rows}</table>`;
+const inc=(a)=>{const i=$("st")/1200,pm=a*1e4*$("rt")/100/12;return pm*(1-Math.pow(1+i,-n))/i};
+const A=$("iA"),B=$("iB"),lim=$("lm")*1e4,dr=$("dr")/100;
+const ded=(loan)=>{let t=0;for(let y=1;y<=13;y++)t+=Math.min(bal(loan,rf,n,y*12),lim)*dr;return t};
+const sd=ded(P),pd=2*ded(P/2);
+document.getElementById("pr").innerHTML=`<div class="w"><table><tr><th></th><th>単独</th><th>合算</th></tr>
+<tr><td>借入上限の目安</td><td>${man(inc(A))}</td><td>${man(inc(A+B))}</td></tr>
+<tr><td>13年の控除総額(概算)</td><td>${man(sd)}</td><td>${man(pd)}</td></tr></table></div>
+<p class="s">控除は借入額 ${man(P)} を単独／ペア（各${man(P/2)}）で組んだ場合。ペアは各人に限度額が適用されるため有利になりやすい一方、団信は各人の分のみで、離婚・退職時のリスクは別に検討が必要です。</p>`}
+function gr(){
+const P=$("P")*1e4,Y=$("Y"),n=Y*12,rf=$("rf"),rv=$("rv"),N=Math.min($("N"),Y-1),dx=$("dx");
+const pf=pay(P,rf,n),p0=pay(P,rv,n),A=[],B=[],C=[];
+let bal=P,p=p0,r=rv,t=0;
+for(let m=0;m<=n;m++){
+if(m>0){if(m===N*12+1){r=rv+dx;p=pay(bal,r,n-m+1)}bal-=p-bal*r/1200;t+=p}
+if(m%12===0){A.push(pf*m);B.push(p0*m);C.push(t)}}
+const mx=Math.max(...A,...B,...C)*1.05,W=600,H=300,L=56,R=14,T=14,Bt=30;
+const x=i=>L+(W-L-R)*i/(A.length-1),y=v=>T+(H-T-Bt)*(1-v/mx);
+const pl=(a,c,d)=>`<polyline fill="none" stroke="${c}" stroke-width="3" ${d?'stroke-dasharray="6 4"':""} points="${a.map((v,i)=>x(i)+","+y(v)).join(" ")}"/>`;
+let s=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto">`;
+for(let k=0;k<=4;k++){const v=mx*k/4,yy=y(v);
+s+=`<line x1="${L}" x2="${W-R}" y1="${yy}" y2="${yy}" style="stroke:var(--bd)"/><text x="${L-6}" y="${yy+4}" text-anchor="end" font-size="11" style="fill:var(--sub)">${(Math.round(v/1e6)*100).toLocaleString()}</text>`}
+const st=Y>30?5:Math.max(1,Math.ceil(Y/6));
+for(let yr=0;yr<=Y;yr+=st)s+=`<text x="${x(yr)}" y="${H-10}" text-anchor="middle" font-size="11" style="fill:var(--sub)">${yr}年</text>`;
+s+=`<text x="${L}" y="10" font-size="11" style="fill:var(--sub)">累積支払額（万円）</text>`;
+s+=`<line x1="${x(N)}" x2="${x(N)}" y1="${T}" y2="${H-Bt}" stroke-dasharray="4 4" style="stroke:var(--sub)"/>`;
+s+=pl(A,"#3b6fe0")+pl(B,"#18a05e")+pl(C,"#e0584a",true)+"</svg>";
+document.getElementById("gr").innerHTML=s;
+const e=a=>man(a[a.length-1]);
+document.getElementById("gl").innerHTML=`<span style="color:#3b6fe0">━</span> 固定 ${rf}%：${e(A)}　<span style="color:#18a05e">━</span> 変動 ${rv}%のまま：${e(B)}　<span style="color:#e0584a">┅</span> 変動 ${N}年後＋${dx}%：${e(C)}`}
+function ru(){
+const P=$("P")*1e4,n=$("Y")*12,r0=$("rv"),x=$("sx");
+let bal=P,p=pay(P,r0,n),r=r0,tot=0,ub=0,rows=`<tr><td>当初</td><td>${yen(p)}</td><td>${man(P)}</td></tr>`;
+for(let m=1;m<=n;m++){
+if(m===13)r=r0+x;
+if(m>1&&(m-1)%60===0){p=Math.min(pay(bal,r,n-m+1),p*1.25);rows+=`<tr><td>${(m-1)/12}年後</td><td>${yen(p)}</td><td>${man(bal)}</td></tr>`}
+const it=bal*r/1200;if(p<it)ub+=it-p;bal+=it-p;tot+=p;if(bal<=0){bal=0;break}}
+document.getElementById("ru").innerHTML=`<div class="w"><table><tr><th>見直し時点</th><th>月々の返済額</th><th>その時の残債</th></tr>${rows}</table></div>
+<p>未払い利息の累計：<b class="${ub>0?"ng":""}">${man(ub)}</b><br>完済時に残る残債（一括返済）：<b class="${bal>0?"ng":""}">${man(bal)}</b><br>支払総額（残債込み）：<b>${man(tot+bal)}</b></p>
+<p class="s">返済額が毎月の利息を下回ると、未払い利息が発生し、残債が増えます。上昇幅を大きくして確かめてください。</p>`}
+document.querySelectorAll("input").forEach(e=>e.addEventListener("input",()=>{calc();ru();gr()}));calc();ru();gr();
+document.querySelectorAll(".card").forEach(c=>{const h=c.querySelector("h2");
+if(!h||!/^(?:[②-⑥]|📈)/.test(h.textContent))return;
+h.style.cursor="pointer";h.textContent="▼ "+h.textContent;
+h.addEventListener("click",()=>{const hide=h.textContent.startsWith("▼");
+h.textContent=(hide?"▶ ":"▼ ")+h.textContent.slice(2);
+[...c.children].forEach(e=>{if(e!==h)e.style.display=hide?"none":""})})});
+</script>
+</body>
+</html>
