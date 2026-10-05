@@ -85,7 +85,7 @@ a{color:var(--ac)}ol{margin:6px 0;padding-left:20px}#ft p{margin:6px 0}
 </main>
 <script>
 window.addEventListener("load",()=>{const b=document.getElementById("adbody");if(!b.innerHTML.replace(/<!--[\s\S]*?-->/g,"").trim())document.getElementById("ad").style.display="none"});
-const NOTE_URL="";      // ← noteの解説記事のURLを入れる
+const NOTE_URL="https://note.com/zero_kobo/n/n10d465e50937";      // ← noteの解説記事のURLを入れる
 (function(){const f=document.getElementById("ft");
 if(NOTE_URL)f.innerHTML=`<p><a href="${NOTE_URL}" target="_blank" rel="noopener">📖 解説記事（note）はこちら</a></p><p class="s">ご感想・ご質問・修正してほしい点は、記事のコメント欄にお寄せください。</p>`;
 else f.style.display="none"})();
@@ -145,7 +145,7 @@ s+=`<line x1="${x(N)}" x2="${x(N)}" y1="${T}" y2="${H-Bt}" stroke-dasharray="4 4
 s+=pl(A,"#3b6fe0")+pl(B,"#18a05e")+pl(C,"#e0584a",true)+"</svg>";
 document.getElementById("gr").innerHTML=s;
 const e=a=>man(a[a.length-1]);
-document.getElementById("gl").innerHTML=`<span style="color:#3b6fe0">━</span> 固定 ${rf}%：${e(A)}　<span style="color:#18a05e">━</span> 変動 ${rv}%のまま：${e(B)}　<span style="color:#e0584a">┅</span> 変動 ${N}年後＋${dx}%：${e(C)}`}
+document.getElementById("gl").innerHTML=`<span style="color:#3b6fe0">━</span> 固定 ${rf}%：${e(A)} <span style="color:#18a05e">━</span> 変動 ${rv}%のまま：${e(B)} <span style="color:#e0584a">┅</span> 変動 ${N}年後＋${dx}%：${e(C)}`}
 function ru(){
 const P=$("P")*1e4,n=$("Y")*12,r0=$("rv"),x=$("sx");
 let bal=P,p=pay(P,r0,n),r=r0,tot=0,ub=0,rows=`<tr><td>当初</td><td>${yen(p)}</td><td>${man(P)}</td></tr>`;
