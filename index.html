@@ -4,12 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>住宅ローン 固定vs変動 損益分岐シミュレーター</title>
+<meta name="description" content="変動金利は何％で固定に負ける？借入額・年数・金利を入れるだけで損益分岐点がわかる住宅ローンシミュレーター。単独とペアの比較、125%ルールの影響も確認できます。">
+<link rel="canonical" href="https://zero-kobo.github.io/loan-sim/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="住宅ローン 固定vs変動 損益分岐シミュレーター">
 <meta property="og:description" content="変動金利は何％で固定に負ける？4,000万円・35年で計算できるシミュレーター">
 <meta property="og:image" content="https://zero-kobo.github.io/loan-sim/ogp.png">
 <meta property="og:url" content="https://zero-kobo.github.io/loan-sim/">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://zero-kobo.github.io/loan-sim/ogp.png">
 <style>
 :root{--bg:#f7f8fa;--card:#fff;--tx:#1d2330;--sub:#667085;--ac:#1f6feb;--ok:#18794e;--ng:#c62828;--bd:#e1e5ec;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12151c;--card:#1b2029;--tx:#e8ebf2;--sub:#9aa3b5;--ac:#5b9bff;--ok:#4cc38a;--ng:#ff7b72;--bd:#2c3340}}
@@ -41,12 +44,12 @@ a{color:var(--ac)}ol{margin:6px 0;padding-left:20px}#ft p{margin:6px 0}
 
 <div class="card"><h2>① 借入条件</h2>
 <div class="g">
-<div><label>借入額（万円）</label><input id="P" type="number" value="4000"></div>
-<div><label>返済年数</label><input id="Y" type="number" value="35"></div>
-<div><label>固定金利（％）</label><input id="rf" type="number" step="0.01" value="3.5"></div>
-<div><label>変動金利・当初（％）</label><input id="rv" type="number" step="0.01" value="0.8"></div>
-<div><label>何年後に上昇？</label><input id="N" type="number" value="5"></div>
-<div><label>上昇幅（＋％）</label><input id="dx" type="number" step="0.1" value="1.5"></div>
+<div><label for="P">借入額（万円）</label><input id="P" min="100" max="100000" inputmode="numeric" type="number" value="4000"></div>
+<div><label for="Y">返済年数</label><input id="Y" min="2" max="50" inputmode="numeric" type="number" value="35"></div>
+<div><label for="rf">固定金利（％）</label><input id="rf" min="0" max="20" inputmode="decimal" type="number" step="0.01" value="3.5"></div>
+<div><label for="rv">変動金利・当初（％）</label><input id="rv" min="0" max="20" inputmode="decimal" type="number" step="0.01" value="0.8"></div>
+<div><label for="N">何年後に上昇？</label><input id="N" min="1" max="49" inputmode="numeric" type="number" value="5"></div>
+<div><label for="dx">上昇幅（＋％）</label><input id="dx" min="0" max="10" inputmode="decimal" type="number" step="0.1" value="1.5"></div>
 </div>
 <p class="s">※金利の初期値は仮の値です。実際の金融機関の最新金利に書き換えてください。</p></div>
 
@@ -58,20 +61,21 @@ a{color:var(--ac)}ol{margin:6px 0;padding-left:20px}#ft p{margin:6px 0}
 
 <div class="card"><h2>⑤ 単独 vs 収入合算（簡易）</h2>
 <div class="g">
-<div><label>本人の年収（万円）</label><input id="iA" type="number" value="600"></div>
-<div><label>配偶者の年収（万円）</label><input id="iB" type="number" value="400"></div>
-<div><label>返済負担率（％）</label><input id="rt" type="number" value="30"></div>
-<div><label>審査金利（％）</label><input id="st" type="number" step="0.1" value="3.5"></div>
-<div><label>控除率（％）</label><input id="dr" type="number" step="0.1" value="0.7"></div>
-<div><label>控除対象の借入限度額（万円/人）</label><input id="lm" type="number" value="4500"></div>
+<div><label for="iA">本人の年収（万円）</label><input id="iA" min="0" max="100000" inputmode="numeric" type="number" value="600"></div>
+<div><label for="iB">配偶者の年収（万円）</label><input id="iB" min="0" max="100000" inputmode="numeric" type="number" value="400"></div>
+<div><label for="rt">返済負担率（％）</label><input id="rt" min="1" max="50" inputmode="decimal" type="number" value="30"></div>
+<div><label for="st">審査金利（％）</label><input id="st" min="0.1" max="20" inputmode="decimal" type="number" step="0.1" value="3.5"></div>
+<div><label for="dr">控除率（％）</label><input id="dr" min="0" max="5" inputmode="decimal" type="number" step="0.1" value="0.7"></div>
+<div><label for="sh">ペアローンの持分：本人（％）</label><input id="sh" min="0" max="100" inputmode="numeric" type="number" value="50"></div>
+<div><label for="lm">控除対象の借入限度額（万円/人）</label><input id="lm" min="0" max="100000" inputmode="numeric" type="number" value="4500"></div>
 </div><div id="pr" style="margin-top:10px"></div></div>
 
 <div class="card"><h2>⑥ 125%ルール ストレステスト</h2>
-<div class="g"><div><label>上昇幅（＋％・2年目から上昇したまま）</label><input id="sx" type="number" step="0.1" value="4"></div></div>
+<div class="g"><div><label for="sx">上昇幅（＋％・2年目から上昇したまま）</label><input id="sx" min="0" max="10" inputmode="decimal" type="number" step="0.1" value="4"></div></div>
 <p class="s">返済額は5年ごとに見直され、増加は直前の1.25倍まで、という仕組みで試算します（①の借入額・年数・変動当初金利を使用）。</p>
 <div id="ru"></div></div>
 
-<p class="s">【前提と注意】元利均等返済・ボーナス返済なし。変動金利は上昇時点で返済額を再計算する簡易モデルで、5年ルール・125％ルール（⑥のみ試算）、諸費用、繰上返済は①〜⑤に未反映です。控除は固定金利の残高を使い13年間で概算、ペアは50:50の持分と仮定。制度や金利は変わるため、実際は金融機関・税務署の情報で確認してください。投資・契約の助言ではありません。</p>
+<p class="s">【前提と注意】元利均等返済・ボーナス返済なし。変動金利は上昇時点で返済額を再計算する簡易モデルで、5年ルール・125％ルール（⑥のみ試算）、諸費用、繰上返済は①〜⑤に未反映です。控除は固定金利の残高を使い、新築・省エネ基準適合住宅の目安（控除率・限度額・期間は住宅の種類や入居時期で変わります）として13年間で概算、ペアは⑤で入力した持分比率で按分。制度や金利は変わるため、実際は金融機関・税務署の情報で確認してください。投資・契約の助言ではありません。</p>
 <div class="card" id="ft"></div>
 <div class="card" id="ad">
 <p class="s">【PR】この欄には広告（アフィリエイト）が含まれます</p>
@@ -91,7 +95,7 @@ if(NOTE_URL)f.innerHTML=`<p><a href="${NOTE_URL}" target="_blank" rel="noopener"
 else f.style.display="none"})();
 </script>
 <script>
-const $=id=>+document.getElementById(id).value;
+const $=id=>{const e=document.getElementById(id);let v=e.value===""?NaN:+e.value;if(!isFinite(v))v=+e.defaultValue;const lo=e.min!==""?+e.min:-Infinity,hi=e.max!==""?+e.max:Infinity;return Math.min(hi,Math.max(lo,v))};
 const pay=(P,r,n)=>{const i=r/1200;return i?P*i/(1-Math.pow(1+i,-n)):P/n};
 const man=v=>Math.round(v/1e4).toLocaleString()+"万円";
 const yen=v=>Math.round(v).toLocaleString()+"円";
@@ -120,11 +124,11 @@ document.getElementById("tb").innerHTML=`<table><tr><th>${N}年後</th><th>上�
 const inc=(a)=>{const i=$("st")/1200,pm=a*1e4*$("rt")/100/12;return pm*(1-Math.pow(1+i,-n))/i};
 const A=$("iA"),B=$("iB"),lim=$("lm")*1e4,dr=$("dr")/100;
 const ded=(loan)=>{let t=0;for(let y=1;y<=13;y++)t+=Math.min(bal(loan,rf,n,y*12),lim)*dr;return t};
-const sd=ded(P),pd=2*ded(P/2);
+const sh=$("sh")/100,sd=ded(P),pd=ded(P*sh)+ded(P*(1-sh));
 document.getElementById("pr").innerHTML=`<div class="w"><table><tr><th></th><th>単独</th><th>合算</th></tr>
 <tr><td>借入上限の目安</td><td>${man(inc(A))}</td><td>${man(inc(A+B))}</td></tr>
 <tr><td>13年の控除総額(概算)</td><td>${man(sd)}</td><td>${man(pd)}</td></tr></table></div>
-<p class="s">控除は借入額 ${man(P)} を単独／ペア（各${man(P/2)}）で組んだ場合。ペアは各人に限度額が適用されるため有利になりやすい一方、団信は各人の分のみで、離婚・退職時のリスクは別に検討が必要です。</p>`}
+<p class="s">控除は借入額 ${man(P)} を単独／ペア（本人${man(P*sh)}・配偶者${man(P*(1-sh))}）で組んだ場合。ペアは各人に限度額が適用されるため有利になりやすい一方、団信は各人の分のみで、離婚・退職時のリスクは別に検討が必要です。</p>`}
 function gr(){
 const P=$("P")*1e4,Y=$("Y"),n=Y*12,rf=$("rf"),rv=$("rv"),N=Math.min($("N"),Y-1),dx=$("dx");
 const pf=pay(P,rf,n),p0=pay(P,rv,n),A=[],B=[],C=[];
