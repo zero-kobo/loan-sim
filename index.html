@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>住宅ローン 固定vs変動 損益分岐シミュレーター</title>
+<title>住宅ローン 固定vs変動 損益分岐シミュレーター｜変動金利は何%で固定に負ける?</title>
 <meta name="description" content="変動金利は何％で固定に負ける？借入額・年数・金利を入れるだけで損益分岐点がわかる住宅ローンシミュレーター。単独とペアの比較、125%ルールの影響も確認できます。">
 <link rel="canonical" href="https://zero-kobo.github.io/loan-sim/">
 <meta property="og:type" content="website">
@@ -13,6 +13,13 @@
 <meta property="og:url" content="https://zero-kobo.github.io/loan-sim/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://zero-kobo.github.io/loan-sim/ogp.png">
+<meta property="og:site_name" content="ちいさなツール工房">
+<meta property="og:locale" content="ja_JP">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "WebApplication", "name": "住宅ローン 固定vs変動 損益分岐シミュレーター", "url": "https://zero-kobo.github.io/loan-sim/", "applicationCategory": "FinanceApplication", "operatingSystem": "Web", "inLanguage": "ja", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "JPY"}, "publisher": {"@type": "Organization", "name": "ちいさなツール工房", "url": "https://zero-kobo.github.io/"}}
+</script>
 <style>
 :root{--bg:#f7f8fa;--card:#fff;--tx:#1d2330;--sub:#667085;--ac:#1f6feb;--ok:#18794e;--ng:#c62828;--bd:#e1e5ec;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12151c;--card:#1b2029;--tx:#e8ebf2;--sub:#9aa3b5;--ac:#5b9bff;--ok:#4cc38a;--ng:#ff7b72;--bd:#2c3340}}
@@ -89,6 +96,18 @@ a{color:var(--ac)}ol{margin:6px 0;padding-left:20px}#ft p{margin:6px 0}
 <table border="0" cellpadding="0" cellspacing="0"><tr><td><div style="border:1px solid #95A5A6;border-radius:.75rem;background-color:#FFFFFF;width:280px;margin:0px;padding:5px;text-align:center;overflow:hidden;"><table><tr><td style="width:128px"><a href="https://hb.afl.rakuten.co.jp/ichiba/582956fc.8e51abce.582956fd.43136d33/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fbook%2F15267684%2F&link_type=picttext&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJwaWN0dGV4dCIsInNpemUiOiIxMjh4MTI4IiwibmFtIjoxLCJuYW1wIjoicmlnaHQiLCJjb20iOjEsImNvbXAiOiJkb3duIiwicHJpY2UiOjAsImJvciI6MSwiY29sIjoxLCJiYnRuIjoxLCJwcm9kIjowLCJhbXAiOmZhbHNlfQ%3D%3D" target="_blank" rel="nofollow sponsored noopener" style="word-wrap:break-word;"><img src="https://hbb.afl.rakuten.co.jp/hgb/582956fc.8e51abce.582956fd.43136d33/?me_id=1213310&item_id=18908113&pc=https%3A%2F%2Fthumbnail.image.rakuten.co.jp%2F%400_mall%2Fbook%2Fcabinet%2F5590%2F9784534055590.jpg%3F_ex%3D128x128&s=128x128&t=picttext" border="0" style="margin:2px" alt="" title=""></a></td><td style="vertical-align:top;width:136px;display: block;"><p style="font-size:12px;line-height:1.4em;text-align:left;margin:0px;padding:2px 6px;word-wrap:break-word"><a href="https://hb.afl.rakuten.co.jp/ichiba/582956fc.8e51abce.582956fd.43136d33/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fbook%2F15267684%2F&link_type=picttext&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJwaWN0dGV4dCIsInNpemUiOiIxMjh4MTI4IiwibmFtIjoxLCJuYW1wIjoicmlnaHQiLCJjb20iOjEsImNvbXAiOiJkb3duIiwicHJpY2UiOjAsImJvciI6MSwiY29sIjoxLCJiYnRuIjoxLCJwcm9kIjowLCJhbXAiOmZhbHNlfQ%3D%3D" target="_blank" rel="nofollow sponsored noopener" style="word-wrap:break-word;">家を買うときに「お金で損したくない人」が読む本 [ 千日太郎 ]</a></p></td></tr></table></div><br><p style="color:#000000;font-size:12px;line-height:1.4em;margin:5px;word-wrap:break-word"></p></td></tr></table>
 <!-- ↑ここまで -->
 </div></div>
+<div class="card" id="guides"><h2>📖 住宅ローンの解説ページ</h2>
+<ul style="margin:0;padding-left:1.2em;line-height:2">
+<li><a href="hensai/">毎月の返済額 早見表(借入額 × 金利)</a></li>
+<li><a href="kinri/">変動金利が上がったら、毎月いくら増える?</a></li>
+<li><a href="nenshu/">年収別の借入額のめやす</a></li>
+</ul></div>
+<div class="card s" id="about"><h2>運営者情報</h2>
+<p><b>運営者:</b>ちいさなツール工房(<a href="https://note.com/zero_kobo" target="_blank" rel="noopener">note</a>)。ご意見は、解説記事(note)のコメント欄へどうぞ。ほかのツールは<a href="https://zero-kobo.github.io/">ツール一覧</a>にあります。</p>
+<p><b>広告について:</b>このページには、楽天アフィリエイトの広告(PR)を含みます。リンクからお買い物があると、運営者に紹介料が入ることがあります。</p>
+<p><b>プライバシーポリシー:</b>入力した金額は、ブラウザの中だけで計算し、こちらに送られることはありません。アクセス状況を知るために、Googleアナリティクス(GA4)を使っています。GA4はCookieを使って、個人を特定しない形でアクセス情報を集めます。止めたい場合は、ブラウザのCookieを無効にするか、<a href="https://tools.google.com/dlpage/gaoptout?hl=ja" target="_blank" rel="noopener">Googleアナリティクス オプトアウト アドオン</a>をご利用ください。広告のリンク先で、広告事業者がCookieなどを使って情報を取得することがあります。</p>
+<p><b>免責事項:</b>計算結果は概算で、実際の返済額や審査の結果を保証するものではありません。特定の金融機関や商品をすすめるものでもありません。借り入れの判断は、金融機関の正式な試算や、専門家への相談をもとに行ってください。</p>
+<p>最終更新日:2026年11月13日</p></div>
 </main>
 <script>
 window.addEventListener("load",()=>{const b=document.getElementById("adbody");if(!b.innerHTML.replace(/<!--[\s\S]*?-->/g,"").trim())document.getElementById("ad").style.display="none"});
