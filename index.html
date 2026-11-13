@@ -38,19 +38,36 @@ th,td{padding:6px 8px;border-bottom:1px solid var(--bd);text-align:right}th:firs
 a{color:var(--ac)}ol{margin:6px 0;padding-left:20px}#ft p{margin:6px 0}
 .ok{color:var(--ok)}.ng{color:var(--ng)}.s{font-size:12px;color:var(--sub)}
 #ad table{width:auto;font-size:inherit;white-space:normal}#ad td{padding:0;border:0;text-align:left}#ad a{color:#1a56db}
+.sb{background:var(--card);border-bottom:1px solid var(--bd)}
+.sb div{max-width:720px;margin:0 auto;padding:9px 16px;display:flex;justify-content:space-between;align-items:center}
+.sb a{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--tx);font-weight:700;font-size:14px}
+.sb svg{width:26px;height:26px;border-radius:6px}
+.sb span{font-size:11.5px;color:var(--ac);border:1px solid var(--ac);border-radius:99px;padding:1px 9px}
+.lead{font-size:13.5px;color:var(--sub);margin:0 0 4px}
+.hero{--on:#fff;background:var(--ac);border-color:var(--ac);color:var(--on);padding:18px 16px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hero,:root:not([data-theme="light"]) .fx{--on:#081a33}}
+:root[data-theme="dark"] .hero,:root[data-theme="dark"] .fx{--on:#081a33}
+.hero h2{font-size:13.5px;opacity:.9;margin:0 0 2px;color:var(--on)}
+.hero .hv{font-size:34px;font-weight:700;line-height:1.25}
+.hero .hm{font-size:13px;opacity:.92;margin:2px 0 0}
+.hero .h2c{display:flex;gap:10px;margin-top:12px}
+.hero .h2c div{flex:1;background:rgba(255,255,255,.18);border-radius:8px;padding:8px 10px;font-size:12px}
+.hero .h2c b{display:block;font-size:17px}
+.fx{--on:#fff;position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--ac);color:var(--on);box-shadow:0 -2px 10px rgba(0,0,0,.15);transition:transform .2s}
+.fx.off{transform:translateY(110%)}
+.fx a{max-width:720px;margin:0 auto;padding:10px 16px calc(10px + env(safe-area-inset-bottom));display:flex;justify-content:space-between;align-items:baseline;gap:10px;color:inherit;text-decoration:none}
+.fx small{font-size:12px;opacity:.9}.fx b{font-size:19px}.fx em{font-style:normal;font-size:12px;opacity:.9}
+body{padding-bottom:56px}
 </style>
 <!-- Google tag (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-40QSGNSQEL"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-40QSGNSQEL");</script>
 </head>
 <body>
+<header class="sb"><div><a href="https://zero-kobo.github.io/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#ffc61a"/><g transform="rotate(45 32 32)" fill="#1c2830"><rect x="27.5" y="22" width="9" height="34" rx="4.5"/><circle cx="32" cy="17" r="11.5"/><rect x="28" y="2" width="8" height="14" rx="1.5" fill="#ffc61a"/></g></svg>ちいさなツール工房</a><span>無料・登録不要</span></div></header>
 <main>
 <h1>🏠 固定 vs 変動 損益分岐シミュレーター</h1>
-<div class="card"><h2>このツールでわかること</h2>
-<p>住宅ローンの「固定金利」と「変動金利」を、総支払額で比べます。変動金利が何％まで上がると固定に逆転されるか（損益分岐点）や、単独・夫婦での借り方の違い、125%ルールで返済額が抑えられたときの残債の増え方も確かめられます。</p>
-<ol><li>①に借入額・年数・金利を入力します（数値は自由に変更できます）</li><li>②〜④で、比較結果と損益分岐点を見ます</li><li>⑤⑥で、借り方の違いと125%ルールの影響を確認します</li></ol>
-<p class="s">②〜⑥は、見出しをタップすると閉じられます。使わない計算は閉じておけます。</p>
-<p class="s">考え方や結果の見方は、解説記事で詳しく説明しています。</p></div>
+<p class="lead">借入額と金利を入れるだけで、固定と変動のどちらが総額で安いか、変動が何％上がると逆転するかがわかります。</p>
 
 <div class="card"><h2>① 借入条件</h2>
 <div class="g">
@@ -63,6 +80,7 @@ a{color:var(--ac)}ol{margin:6px 0;padding-left:20px}#ft p{margin:6px 0}
 </div>
 <p class="s">※金利の初期値は仮の値です。実際の金融機関の最新金利に書き換えてください。</p></div>
 
+<div class="card hero" id="hero"><h2>変動は、固定とくらべて(総支払額)</h2><div id="hv"></div></div>
 <div class="card"><h2>② 比較結果</h2><div id="res"></div></div>
 <div class="card"><h2>📈 累積支払額の推移（グラフ）</h2><div id="gl" class="s"></div><div id="gr"></div>
 <p class="s">線が交わるところが、固定と変動の総額が並ぶ時点です。点線は金利が上がる時点（①の「何年後に？」）です。</p></div>
@@ -86,6 +104,12 @@ a{color:var(--ac)}ol{margin:6px 0;padding-left:20px}#ft p{margin:6px 0}
 <div id="ru"></div></div>
 
 <p class="s">【前提と注意】元利均等返済・ボーナス返済なし。変動金利は上昇時点で返済額を再計算する簡易モデルで、5年ルール・125％ルール（⑥のみ試算）、諸費用、繰上返済は①〜⑤に未反映です。控除は固定金利の残高を使い、新築・省エネ基準適合住宅の目安（控除率・限度額・期間は住宅の種類や入居時期で変わります）として13年間で概算、ペアは⑤で入力した持分比率で按分。制度や金利は変わるため、実際は金融機関・税務署の情報で確認してください。投資・契約の助言ではありません。</p>
+<div class="card"><h2>このツールでわかること</h2>
+<p>住宅ローンの「固定金利」と「変動金利」を、総支払額で比べます。変動金利が何％まで上がると固定に逆転されるか（損益分岐点）や、単独・夫婦での借り方の違い、125%ルールで返済額が抑えられたときの残債の増え方も確かめられます。</p>
+<ol><li>①に借入額・年数・金利を入力します（数値は自由に変更できます）</li><li>②〜④で、比較結果と損益分岐点を見ます</li><li>⑤⑥で、借り方の違いと125%ルールの影響を確認します</li></ol>
+<p class="s">②〜⑥は、見出しをタップすると閉じられます。使わない計算は閉じておけます。</p>
+<p class="s">考え方や結果の見方は、解説記事で詳しく説明しています。</p></div>
+
 <div class="card" id="ft"></div>
 <div class="card" id="ad">
 <p class="s">【PR】この欄には広告（アフィリエイト）が含まれます</p>
@@ -116,6 +140,7 @@ const NOTE_URL="https://note.com/zero_kobo/n/n10d465e50937";      // ← noteの
 if(NOTE_URL)f.innerHTML=`<p><a href="${NOTE_URL}" target="_blank" rel="noopener">📖 解説記事（note）はこちら</a></p><p class="s">ご感想・ご質問・修正してほしい点は、記事のコメント欄にお寄せください。</p>`;
 else f.style.display="none"})();
 </script>
+<div class="fx off" id="fx"><a href="#hero"><small id="fxs"></small><b id="fxv"></b><em>くわしく ›</em></a></div>
 <script>
 const $=id=>{const e=document.getElementById(id);let v=e.value===""?NaN:+e.value;if(!isFinite(v))v=+e.defaultValue;const lo=e.min!==""?+e.min:-Infinity,hi=e.max!==""?+e.max:Infinity;return Math.min(hi,Math.max(lo,v))};
 const pay=(P,r,n)=>{const i=r/1200;return i?P*i/(1-Math.pow(1+i,-n)):P/n};
@@ -134,6 +159,9 @@ document.getElementById("res").innerHTML=
 <tr><td>変動 当初${rv}%</td><td>${yen(v.m1)}</td><td></td></tr>
 <tr><td>変動 ${N}年後＋${dx}%</td><td>${yen(v.m2)}</td><td>${man(v.tot)}</td></tr></table></div>
 <p>変動は固定より総額で <span class="big ${d>0?"ng":"ok"}">${d>0?"+":"−"}${man(Math.abs(d))}</span> ${d>0?"高い（固定が有利）":"安い（変動が有利）"}</p>`;
+const hs=(d>0?"+":"−")+man(Math.abs(d));
+document.getElementById("hv").innerHTML=`<div class="hv">${hs}</div><p class="hm">${d>0?"変動のほうが高い(この条件では固定が有利)":"変動のほうが安い(この条件では変動が有利)"}<br>変動が${N}年後に＋${dx}％上がる想定</p><div class="h2c"><div>固定の月々<b>${yen(fm)}</b></div><div>変動の月々<b>${yen(v.m1)}</b>→ ${yen(v.m2)}</div></div>`;
+document.getElementById("fxv").textContent=hs;document.getElementById("fxs").textContent=d>0?"変動が高い":"変動が安い";
 const f=x=>simVar(P,rv,n,N,x).tot-ft;let be;
 if(f(0)>0)be="当初金利のままでも変動の総額が固定を上回っています。";
 else if(f(10)<0)be=`${N}年後に＋10％上がっても変動が有利です。`;
@@ -189,6 +217,7 @@ h.style.cursor="pointer";h.textContent="▼ "+h.textContent;
 h.addEventListener("click",()=>{const hide=h.textContent.startsWith("▼");
 h.textContent=(hide?"▶ ":"▼ ")+h.textContent.slice(2);
 [...c.children].forEach(e=>{if(e!==h)e.style.display=hide?"none":""})})});
+if("IntersectionObserver" in window)new IntersectionObserver(e=>document.getElementById("fx").classList.toggle("off",e[0].isIntersecting),{threshold:.15}).observe(document.getElementById("hero"));
 </script>
 </body>
 </html>
