@@ -58,6 +58,7 @@ a{color:var(--ac)}ol{margin:6px 0;padding-left:20px}#ft p{margin:6px 0}
 .fx a{max-width:720px;margin:0 auto;padding:10px 16px calc(10px + env(safe-area-inset-bottom));display:flex;justify-content:space-between;align-items:baseline;gap:10px;color:inherit;text-decoration:none}
 .fx small{font-size:12px;opacity:.9}.fx b{font-size:19px}.fx em{font-style:normal;font-size:12px;opacity:.9}
 body{padding-bottom:56px}
+.mg{border:2px solid var(--ac)}.mg .mgb{display:block;text-align:center;text-decoration:none;font-weight:700;background:var(--ac);color:var(--card);border-radius:10px;padding:14px 10px;margin:12px 0 6px;font-size:16px}
 </style>
 <!-- Google tag (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-40QSGNSQEL"></script>
@@ -82,6 +83,11 @@ body{padding-bottom:56px}
 
 <div class="card hero" id="hero"><h2>変動は、固定とくらべて(総支払額)</h2><div id="hv"></div></div>
 <div class="card"><h2>② 比較結果</h2><div id="res"></div></div>
+<div class="card mg" id="mg"><p class="s">【PR】この欄には広告(アフィリエイト)が含まれます</p>
+<h2>実際の金利で、自分に合うローンを比べたい方へ</h2>
+<p>このツールの金利は仮の値です。実際にいくらで借りられるかは、年収や勤め先、物件によって変わります。「モゲチェック」は、年収や物件などの条件を入れると、借りられそうな銀行と金利のプランを、無料で提案してくれるサービスです。これから家を買う方にも、借り換えを考えている方にも使えます。</p>
+<a class="mgb" href="https://px.a8.net/svt/ejp?a8mat=4BEA4W+1B19KI+3SUE+15OK2A" rel="nofollow sponsored noopener" target="_blank" onclick="if(window.gtag)gtag('event','mogecheck_click',{place:'tool'})">モゲチェックで無料プランをもらう ›</a><img border="0" width="1" height="1" src="https://www16.a8.net/0.gif?a8mat=4BEA4W+1B19KI+3SUE+15OK2A" alt="" style="position:absolute">
+<p class="s">申し込みの前に、サービスの内容と注意点を公式サイトで確認してください。</p></div>
 <div class="card"><h2>📈 累積支払額の推移（グラフ）</h2><div id="gl" class="s"></div><div id="gr"></div>
 <p class="s">線が交わるところが、固定と変動の総額が並ぶ時点です。点線は金利が上がる時点（①の「何年後に？」）です。</p></div>
 <div class="card"><h2>③ 損益分岐点</h2><div id="be"></div></div>
@@ -128,7 +134,7 @@ body{padding-bottom:56px}
 </ul></div>
 <div class="card s" id="about"><h2>運営者情報</h2>
 <p><b>運営者:</b>ちいさなツール工房(<a href="https://note.com/zero_kobo" target="_blank" rel="noopener">note</a>)。ご意見は、解説記事(note)のコメント欄へどうぞ。ほかのツールは<a href="https://zero-kobo.github.io/">ツール一覧</a>にあります。</p>
-<p><b>広告について:</b>このページには、楽天アフィリエイトの広告(PR)を含みます。リンクからお買い物があると、運営者に紹介料が入ることがあります。</p>
+<p><b>広告について:</b>このページには、楽天アフィリエイトとA8.netの広告(PR)を含みます。リンクからお買い物やお申し込みがあると、運営者に紹介料が入ることがあります。</p>
 <p><b>プライバシーポリシー:</b>入力した金額は、ブラウザの中だけで計算し、こちらに送られることはありません。アクセス状況を知るために、Googleアナリティクス(GA4)を使っています。GA4はCookieを使って、個人を特定しない形でアクセス情報を集めます。止めたい場合は、ブラウザのCookieを無効にするか、<a href="https://tools.google.com/dlpage/gaoptout?hl=ja" target="_blank" rel="noopener">Googleアナリティクス オプトアウト アドオン</a>をご利用ください。広告のリンク先で、広告事業者がCookieなどを使って情報を取得することがあります。</p>
 <p><b>免責事項:</b>計算結果は概算で、実際の返済額や審査の結果を保証するものではありません。特定の金融機関や商品をすすめるものでもありません。借り入れの判断は、金融機関の正式な試算や、専門家への相談をもとに行ってください。</p>
 <p>最終更新日:2026年11月13日</p></div>
